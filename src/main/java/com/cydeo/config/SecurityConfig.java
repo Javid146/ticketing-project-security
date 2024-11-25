@@ -29,27 +29,28 @@ public class SecurityConfig {
         this.authSuccessHandler = authSuccessHandler;
     }
 
-//    @Bean
+    //code below is just example. todo user needs to come from repository db. so user data should not be in this class
+//    @Bean //spring created service for us by Spring, takes user details from db and uses it for login and else
+    //encoder comes from TicketingProjectOrmApplication class as Bean
 //    public UserDetailsService userDetailsService(PasswordEncoder encoder){
-//
 //
 //        List<UserDetails> userList =  new ArrayList<>();
 //
-//        userList.add(
-//                new User("mike", encoder.encode("password"), Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"))));
+//        userList.add(//User comes from Spring's org.springframework.security.core.userdetails.User;
+//                new User("mike", encoder.encode("password"), List.of(new SimpleGrantedAuthority("ROLE_ADMIN"))));
 //        userList.add(
 //                new User("ozzy", encoder.encode("password"), Arrays.asList(new SimpleGrantedAuthority("ROLE_MANAGER"))));
 //
-//
+//        //to keep users in memory not database
 //        return new InMemoryUserDetailsManager(userList);
 //    }
 
-    @Bean
+    @Bean //what page should have restriction, where certain users has access and stuff, basically filter for access
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         return http
                 .authorizeRequests()
-//                .antMatchers("/user/**").hasRole("Admin")
+                .antMatchers("/user/**").hasRole("Admin")
                 .antMatchers("/user/**").hasAuthority("Admin")
                 .antMatchers("/project/**").hasAuthority("Manager")
                 .antMatchers("/task/employee/**").hasAuthority("Employee")
@@ -57,21 +58,22 @@ public class SecurityConfig {
 //                .antMatchers("/task/**").hasAnyRole("EMPLOYEE","ADMIN")
 //                .antMatchers("task/**").hasAuthority("ROLE_EMPLOYEE")
 
+                //everybody should have access to these pages (endpoints from controller)
                 .antMatchers(
                        "/",
                        "/login",
                        "/fragments/**",
                        "/assets/**",
                        "/images/**"
-                ).permitAll()
+                ).permitAll() //everybody should have access to these pages (endpoints from controller)
                 .anyRequest().authenticated()
                 .and()
 //                .httpBasic()
-                .formLogin()
+                .formLogin()//means use this login page when website opens. which is in LoginController class
                     .loginPage("/login")
-//                    .defaultSuccessUrl("/welcome")
+//                    .defaultSuccessUrl("/welcome") //if login successful go to /welcome page
                     .successHandler(authSuccessHandler)
-                    .failureUrl("/login?error=true")
+                    .failureUrl("/login?error=true") //if failed go to this page
                     .permitAll()
                 .and()
                 .logout()

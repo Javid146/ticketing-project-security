@@ -15,11 +15,13 @@ public class TicketingProjectOrmApplication {
 		SpringApplication.run(TicketingProjectOrmApplication.class, args);
 	}
 
+	//if you did not build the class, classes should be here with @Bean.
 	@Bean
 	public ModelMapper mapper(){
 		return new ModelMapper();
 	}
 
+	//takes password and encodes it. spring does not accept plain password
 	@Bean
 	public PasswordEncoder passwordEncoder(){
 		return new BCryptPasswordEncoder();

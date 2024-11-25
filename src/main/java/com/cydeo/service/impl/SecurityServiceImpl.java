@@ -8,10 +8,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class SecurityServiceImpl  implements SecurityService {
-
 
     private final UserRepository userRepository;
 
@@ -27,7 +25,7 @@ public class SecurityServiceImpl  implements SecurityService {
         if(user==null){
             throw  new UsernameNotFoundException("This user does not exists");
         }
-
+        //gets user from db and maps to Spring User for UI. UserPrincipal is created by us too
         return new UserPrincipal(user);
     }
 }
