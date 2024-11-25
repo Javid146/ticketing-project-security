@@ -17,15 +17,16 @@ public class SecurityServiceImpl  implements SecurityService {
         this.userRepository = userRepository;
     }
 
+    //this method returns spring user
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException { //from SecurityService that extends spring UserDetailsService
 
+        //my user from db
         User user = userRepository.findByUserName(username);
 
         if(user==null){
             throw  new UsernameNotFoundException("This user does not exists");
         }
-        //gets user from db and maps to Spring User for UI. UserPrincipal is created by us too
-        return new UserPrincipal(user);
+        return new UserPrincipal(user); //we assign our user from db to UserDetail which has spring generic User
     }
 }

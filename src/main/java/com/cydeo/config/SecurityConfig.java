@@ -60,32 +60,31 @@ public class SecurityConfig {
 
                 //everybody should have access to these pages (endpoints from controller)
                 .antMatchers(
-                       "/",
-                       "/login",
-                       "/fragments/**",
-                       "/assets/**",
-                       "/images/**"
+                        "/",
+                        "/login",
+                        "/fragments/**",
+                        "/assets/**",
+                        "/images/**"
                 ).permitAll() //everybody should have access to these pages (endpoints from controller)
                 .anyRequest().authenticated()
                 .and()
 //                .httpBasic()
                 .formLogin()//means use this login page when website opens. which is in LoginController class
-                    .loginPage("/login")
+                .loginPage("/login")
 //                    .defaultSuccessUrl("/welcome") //if login successful go to /welcome page
-                    .successHandler(authSuccessHandler)
-                    .failureUrl("/login?error=true") //if failed go to this page
-                    .permitAll()
+                .successHandler(authSuccessHandler)
+                .failureUrl("/login?error=true") //if failed go to this page
+                .permitAll()
                 .and()
                 .logout()
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                    .logoutSuccessUrl("/login")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login")
                 .and()
                 .rememberMe()
-                    .tokenValiditySeconds(120)
-                    .key("cydeo")
-                    .userDetailsService(securityService)
+                .tokenValiditySeconds(120)
+                .key("cydeo")
+                .userDetailsService(securityService)
                 .and().build();
-
     }
 
 

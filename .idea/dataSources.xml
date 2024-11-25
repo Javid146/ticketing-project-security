@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+<<<<<<< HEAD
     <data-source source="LOCAL" name="/ticketing-apps" uuid="2371e137-67e1-47c0-bf39-758b1699d7b6">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
@@ -8,6 +9,13 @@
       <remarks>$PROJECT_DIR$/src/main/resources/application.properties</remarks>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql:/ticketing-apps</jdbc-url>
+=======
+    <data-source source="LOCAL" name="ticketing-apps@localhost" uuid="952ee4c7-afdf-4e7f-af33-73cbe2e3700c">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/ticketing-apps</jdbc-url>
+>>>>>>> master
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
@@ -16,6 +24,7 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+<<<<<<< HEAD
     <data-source source="LOCAL" name="ticketing-apps@localhost" uuid="a7818c52-d89f-4fe2-a1c5-6b049885edfc">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
@@ -28,5 +37,7 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+=======
+>>>>>>> master
   </component>
 </project>
