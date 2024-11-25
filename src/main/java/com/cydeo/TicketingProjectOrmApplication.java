@@ -14,12 +14,14 @@ public class TicketingProjectOrmApplication {
 		SpringApplication.run(TicketingProjectOrmApplication.class, args);
 	}
 
+	//if you did not build the class, classes should be here with @Bean.
 	//todo if you did not create a class like 2 below, it should have @Bean annot and should be in TicketingProjectOrmApplication class
 	@Bean
 	public ModelMapper mapper(){
 		return new ModelMapper();
 	}
 
+	//takes password and encodes it. spring does not accept plain password
 	//todo password encoder class, to encode my password, because Spring only accepts encoded code. it is used only for UI
 	//at work will not be used probably
 	@Bean
