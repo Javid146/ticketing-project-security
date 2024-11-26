@@ -47,7 +47,6 @@ public class ProjectServiceImpl implements ProjectService {
 
         List<Project> list = projectRepository.findAll();
         return list.stream().map(projectMapper::convertToDto).collect(Collectors.toList());
-
     }
 
     @Override
@@ -57,8 +56,6 @@ public class ProjectServiceImpl implements ProjectService {
 
         Project project = projectMapper.convertToEntity(dto);
         projectRepository.save(project);
-
-
     }
 
     @Override
@@ -70,9 +67,6 @@ public class ProjectServiceImpl implements ProjectService {
         convertedProject.setProjectStatus(project.getProjectStatus());
 
         projectRepository.save(convertedProject);
-
-
-
     }
 
     @Override
@@ -83,9 +77,7 @@ public class ProjectServiceImpl implements ProjectService {
         project.setProjectCode(project.getProjectCode() + "-" + project.getId());
 
         projectRepository.save(project);
-
         taskService.deleteByProject(projectMapper.convertToDto(project));
-
     }
 
     @Override
@@ -95,17 +87,15 @@ public class ProjectServiceImpl implements ProjectService {
         project.setProjectStatus(Status.COMPLETE);
 
         projectRepository.save(project);
-
         taskService.completeByProject(projectMapper.convertToDto(project));
     }
 
     @Override
     public List<ProjectDTO> listAllProjectDetails() {
 
+        //this class holds details of user that wants to log in the page. Instead of hard-coding some usernames here,SecurityContextHolder brings us any user that tries to log in page
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-
         UserDTO currentUserDTO = userService.findByUserName(username);
-
         User user = userMapper.convertToEntity(currentUserDTO);
 
         List<Project> list = projectRepository.findAllByAssignedManager(user);
@@ -117,11 +107,7 @@ public class ProjectServiceImpl implements ProjectService {
             obj.setUnfinishedTaskCounts(taskService.totalNonCompletedTask(project.getProjectCode()));
             obj.setCompleteTaskCounts(taskService.totalCompletedTask(project.getProjectCode()));
 
-
             return obj;
-
-
-
         }).collect(Collectors.toList());
     }
 
@@ -130,6 +116,4 @@ public class ProjectServiceImpl implements ProjectService {
         List<Project> list = projectRepository.findAllByAssignedManager(assignedManager);
         return list.stream().map(projectMapper::convertToDto).collect(Collectors.toList());
     }
-
-
 }

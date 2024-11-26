@@ -50,7 +50,7 @@ public class SecurityConfig {
 
         return http
                 .authorizeRequests()
-                .antMatchers("/user/**").hasRole("Admin")
+//                .antMatchers("/user/**").hasRole("Admin")
                 .antMatchers("/user/**").hasAuthority("Admin")
                 .antMatchers("/project/**").hasAuthority("Manager")
                 .antMatchers("/task/employee/**").hasAuthority("Employee")
@@ -72,18 +72,18 @@ public class SecurityConfig {
                 .formLogin()//means use this login page when website opens. which is in LoginController class
                 .loginPage("/login")
 //                    .defaultSuccessUrl("/welcome") //if login successful go to /welcome page
-                .successHandler(authSuccessHandler)
+                .successHandler(authSuccessHandler) //from AuthSuccessHandler class, that defines which role has which page access
                 .failureUrl("/login?error=true") //if failed go to this page
                 .permitAll()
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login")
+                .logoutSuccessUrl("/login") //come to login page after logout
                 .and()
                 .rememberMe()
                 .tokenValiditySeconds(120)
-                .key("cydeo")
-                .userDetailsService(securityService)
+                .key("cydeo") //session is created under this key, so you can login and stay in page. inspect > Application  can show open session
+                .userDetailsService(securityService) //gets which use will be remembered
                 .and().build();
     }
 

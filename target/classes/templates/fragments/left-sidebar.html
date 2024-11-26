@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"> <!-- todo for security dependency this line needs to be added-->
 
 <body>
 
@@ -22,6 +22,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav flex-column">
                         <li class="nav-divider"></li>
+<!--                        for security on thymeleaf we add line below. says, only manager and admin can have access to specific section-->
                         <li class="nav-item" sec:authorize="hasAnyAuthority('Admin','Manager')">
                             <a class="nav-link active"
                                href="#"
@@ -34,15 +35,18 @@
                             </a>
                             <div id="submenu-1" class="collapse submenu" style="">
                                 <ul class="nav flex-column">
+                <!--for security on thymeleaf we add line below. says, only admin can have access to specific section of page-->
                                     <li class="nav-item" sec:authorize="hasAnyAuthority('Admin')">
                                         <a class="nav-link" th:href="@{/user/create}">User Create</a>
                                     </li>
+                <!--for security on thymeleaf we add line below. says, only manager can have access to specific section-->
                                     <li class="nav-item" sec:authorize="hasAnyAuthority('Manager')">
                                         <a class="nav-link" th:href="@{/project/create}">Project Create</a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
+                        <!--for security on thymeleaf we add line below. says, only manager can have access to specific section-->
                         <li class="nav-item" sec:authorize="hasAnyAuthority('Manager')">
                             <a class="nav-link"
                                href="#"
@@ -65,6 +69,7 @@
                                 </ul>
                             </div>
                         </li>
+                        <!--for security on thymeleaf we add line below. says, only Employee can have access to specific section-->
                         <li class="nav-item" sec:authorize="hasAnyAuthority('Employee')">
                             <a class="nav-link"
                                href="#"

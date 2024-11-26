@@ -11,29 +11,20 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Data
 @MappedSuperclass
-@EntityListeners(BaseEntityListener.class)
-public class BaseEntity {  //break till 8:35
+@EntityListeners(BaseEntityListener.class) //for listener class. BaseEntityListener captures data from security and assigns to BaseEntity
+public class BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
-    @Column(nullable = false,updatable = false)
+    @Column(nullable = false, updatable = false)
     public LocalDateTime insertDateTime;
-    @Column(nullable = false,updatable = false)
+    @Column(nullable = false, updatable = false)
     public Long insertUserId;
     @Column(nullable = false)
     public LocalDateTime lastUpdateDateTime;
     @Column(nullable = false)
     public Long lastUpdateUserId;
-
-    private Boolean isDeleted=false;
-
-
-
-
-
-
-
-
+    private Boolean isDeleted = false;
 }

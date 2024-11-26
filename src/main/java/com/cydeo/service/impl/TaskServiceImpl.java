@@ -129,12 +129,12 @@ public class TaskServiceImpl implements TaskService {
             task.get().setTaskStatus(dto.getTaskStatus());
             taskRepository.save(task.get());
         }
-
     }
 
     @Override
     public List<TaskDTO> listAllTasksByStatus(Status status) {
-
+        //this class holds details of user that wants to log in the page. Instead of hard-coding some usernames here,SecurityContextHolder brings us any user that tries to log in page
+        //instead of User loggedInUser = userRepository.findByUserName("javid@employee.com");
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
         User loggedInUser = userRepository.findByUserName(username);
@@ -152,5 +152,4 @@ public class TaskServiceImpl implements TaskService {
         List<Task> list = taskRepository.findAllByProject(projectMapper.convertToEntity(project));
         return list.stream().map(taskMapper::convertToDTO).collect(Collectors.toList());
     }
-
 }

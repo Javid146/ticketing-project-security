@@ -17,30 +17,25 @@ public class BaseEntityListener extends AuditingEntityListener {
     @PrePersist
     public void onPrePersist(BaseEntity baseEntity){
 
+        //SecurityContextHolder give login user info
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
 
         baseEntity.insertDateTime = LocalDateTime.now();
         baseEntity.lastUpdateDateTime = LocalDateTime.now();
-//        baseEntity.insertUserId = 1L;
-//        baseEntity.lastUpdateUserId = 1L;
 
+        //if user is authenticated while clicking login btn, then assign its userId to baseEntity userId
         if(authentication != null && !authentication.getName().equals("anonymousUser")){
             Object principal = authentication.getPrincipal();
             baseEntity.insertUserId = ((UserPrincipal) principal).getId();
             baseEntity.lastUpdateUserId =((UserPrincipal) principal).getId();
         }
-
-
     }
 
     @PreUpdate
     public void onPreUpdate(BaseEntity baseEntity){
 
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
         baseEntity.lastUpdateDateTime = LocalDateTime.now();
-//        baseEntity.lastUpdateUserId = 1L;
 
         if(authentication != null && !authentication.getName().equals("anonymousUser")){
             Object principal = authentication.getPrincipal();

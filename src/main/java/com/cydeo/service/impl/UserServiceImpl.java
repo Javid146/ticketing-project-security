@@ -54,14 +54,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(UserDTO dto) {
 
+        //if user is not enabled when you create in dto, you will not be able to log in with that new user. enabled is like sending email to you to verify yor account
+        //after you open email and verify you can access website. also users table accepts enabled column as enabled true.
         dto.setEnabled(true);
 
         User obj = userMapper.convertToEntity(dto);
+        //from passwordEncoder class in TicketingProjectOrmApplication class. to encode your regular password. because spring db only accepts encoded password
         obj.setPassWord(passwordEncoder.encode(obj.getPassWord()));
 
         userRepository.save(obj);
-
-
     }
 
     @Override
